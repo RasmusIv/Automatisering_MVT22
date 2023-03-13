@@ -85,7 +85,7 @@ describe('User account manipulation', () => {
     it("Allows log-in with existing credentials", () => {
         cy.wait(1000)
         cy.get('.d-flex > .icon-button-wrapper > .icon-button').click()
-        cy.get('.icon-user > .input-field').type('rasmustest')
+        cy.get('.icon-user > .input-field').type(ustr)
         cy.get('.icon-lock > .input-field').type('passwordtest')
         cy.get('.login-form > :nth-child(1) > .text-btn').click()
         cy.get('.profile-picture-wrap > .ximg').click()
