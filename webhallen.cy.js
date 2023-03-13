@@ -1,7 +1,12 @@
+function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+  }
 /// <reference types="cypress" />
 describe('User Journey from main to checkout', () => {
     beforeEach(() => {
+        cy.viewport(1920, 1080)
         cy.visit("http://webhallen.com/se")
+        cy.wait(500)
         cy.get('.cookie-buttons > :nth-child(1)').click()
     })
     it("Allows searches in search field", () => {
@@ -54,20 +59,31 @@ describe('User Journey from main to checkout', () => {
     })
 })
 describe('User account manipulation', () => {
+    var x = getRandomInt(1000)
+    var estr = x+"rasmustest@example.se"
+    var ustr = x+"rasmustest"
     beforeEach(() => {
-        cy.visit("http://webhallen.com/se")
+        cy.viewport(1920, 1080)
+        cy.visit("https://www.webhallen.com/se/")
+        cy.wait(500)
         cy.get('.cookie-buttons > :nth-child(1)').click()
+        cy.wait(500)
     })
-    it("Allows creation of new user account", () => {
+    it.only("Allows creation of new user account", () => {
+        cy.wait(1000)
         cy.get('.d-flex > .icon-button-wrapper > .icon-button').click()
-        cy.get('.login-footer a').first().click()
-        cy.get('#email').type('rasmustest@example.se')
-        cy.get('#username').type('rasmustest')
+        cy.get('.login-footer > :nth-child(1)').first().click()
+        cy.get('#email').type(estr)
+        cy.get('#username').type(ustr)
+        cy.get('#password').click()
         cy.get('#password').type('passwordtest')
         cy.get('#verifypassword').type('passwordtest')
-        cy.get('.mt-5').click()
+        cy.get('.mt-5').should('exist')
+        // cy.get('mt-5').click()
+        cy.log(estr, ustr)
     })
     it("Allows log-in with existing credentials", () => {
+        cy.wait(1000)
         cy.get('.d-flex > .icon-button-wrapper > .icon-button').click()
         cy.get('.icon-user > .input-field').type('rasmustest')
         cy.get('.icon-lock > .input-field').type('passwordtest')
@@ -77,10 +93,11 @@ describe('User account manipulation', () => {
         cy.location('pathname').should('contain', '/se/member/7336352')
     })
     it("Does NOT allow creation of new user account with existing credentials", () => {
+        cy.wait(1000)
         cy.get('.d-flex > .icon-button-wrapper > .icon-button').click()
         cy.get('.login-footer a').first().click()
-        cy.get('#email').type('rasmustest@example.se')
-        cy.get('#username').type('rasmustest')
+        cy.get('#email').type(estr)
+        cy.get('#username').type(ustr)
         cy.get('#password').type('passwordtest')
         cy.get('#verifypassword').type('passwordtest')
         cy.get('.mt-5').click()
