@@ -35,7 +35,6 @@ describe('User Journey from main to checkout', () => {
         cy.get('#add-product-to-cart > .text-btn').click()
         cy.wait(500)
         cy.get('.add-insurance > ._secondary > span').click()
-        cy.get('.add-insurance > .text-btn > span').click()
         cy.get('.toast-alert').should('exist').contains('Du har lagt till en produkt i varukorgen')
         cy.get('.cart-header').click()
         cy.get('.to-checkout a').should('exist').click()
