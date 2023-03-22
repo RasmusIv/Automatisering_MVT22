@@ -7,7 +7,7 @@ describe('User Journey from main to checkout', () => {
         cy.viewport(1920, 1080)
         cy.visit("http://webhallen.com/se")
     })
-    it.only("Allows searches in search field", () => {
+    it("Allows searches in search field", () => {
         cy.get('.search').type('Dungeons and Dragons')
         cy.get('.search-button').click()
         cy.get('h1').contains('Sökresultat för "Dungeons and Dragons"')
@@ -67,8 +67,7 @@ describe('User account manipulation', () => {
     })
     it("Allows creation of new user account", () => {
         cy.wait(1000)
-        cy.get('.d-flex > .icon-button-wrapper > .icon-button').click()
-        cy.get('.login-footer > :nth-child(1)').first().click()
+        cy.get('.member-widget-options > :nth-child(2)').click()
         cy.get('#email').type(estr)
         cy.get('#username').type(ustr)
         cy.get('#password').click()
@@ -80,7 +79,7 @@ describe('User account manipulation', () => {
     })
     it("Allows log-in with existing credentials", () => {
         cy.wait(1000)
-        cy.get('.d-flex > .icon-button-wrapper > .icon-button').click()
+        cy.get('strong').click()
         cy.get('.icon-user > .input-field').type(ustr)
         cy.get('.icon-lock > .input-field').type('passwordtest')
         cy.get('.login-form > :nth-child(1) > .text-btn').click()
@@ -90,8 +89,7 @@ describe('User account manipulation', () => {
     })
     it("Does NOT allow creation of new user account with existing credentials", () => {
         cy.wait(1000)
-        cy.get('.d-flex > .icon-button-wrapper > .icon-button').click()
-        cy.get('.login-footer a').first().click()
+        cy.get('.member-widget-options > :nth-child(2)').click()
         cy.get('#email').type(estr)
         cy.get('#username').type(ustr)
         cy.get('#password').type('passwordtest')
