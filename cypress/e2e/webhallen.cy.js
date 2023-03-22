@@ -7,7 +7,7 @@ describe('User Journey from main to checkout', () => {
         cy.viewport(1920, 1080)
         cy.visit("http://webhallen.com/se")
     })
-    it("Allows searches in search field", () => {
+    it.only("Allows searches in search field", () => {
         cy.get('.search').type('Dungeons and Dragons')
         cy.get('.search-button').click()
         cy.get('h1').contains('Sökresultat för "Dungeons and Dragons"')
@@ -65,7 +65,7 @@ describe('User account manipulation', () => {
         cy.visit("https://www.webhallen.com/se/")
         cy.wait(500)
     })
-    it.only("Allows creation of new user account", () => {
+    it("Allows creation of new user account", () => {
         cy.wait(1000)
         cy.get('.d-flex > .icon-button-wrapper > .icon-button').click()
         cy.get('.login-footer > :nth-child(1)').first().click()
