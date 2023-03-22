@@ -6,6 +6,7 @@ describe('User Journey from main to checkout', () => {
     beforeEach(() => {
         cy.viewport(1920, 1080)
         cy.visit("http://webhallen.com/se")
+        cy.wait(1000)
     })
     it("Allows searches in search field", () => {
         cy.get('.search').type('Dungeons and Dragons')
@@ -63,7 +64,7 @@ describe('User account manipulation', () => {
     beforeEach(() => {
         cy.viewport(1920, 1080)
         cy.visit("https://www.webhallen.com/se/")
-        cy.wait(500)
+        cy.wait(1000)
     })
     it("Allows creation of new user account", () => {
         cy.wait(1000)
