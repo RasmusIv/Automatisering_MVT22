@@ -4,6 +4,7 @@ function getRandomInt(max) {
 /// <reference types="cypress" />
 describe('User Journey from main to checkout', () => {
     beforeEach(() => {
+        cy.viewport(1920,1080)
         cy.visit("http://webhallen.com/se")
         cy.wait(1000)
         cy.get('.cookie-buttons > :nth-child(1) > span').click()
@@ -27,18 +28,16 @@ describe('User Journey from main to checkout', () => {
         cy.wait(1000)
     })
     it("Allows moving to checkout when an item is in the cart", () => {
-        cy.wait(1000)
-        cy.get('.search').type('PS5')
+        cy.get('.search').type('Super Mario')
         cy.get('.search-button').click()
         cy.location('pathname').should('contain', '/se/search')
-        cy.get('h1').contains('Sökresultat för "PS5"')
-        cy.wait(1500)
+        cy.get('h1').contains('Sökresultat för "Super Mario"')
+        cy.wait(1000)
         cy.get('.product-list-page > :nth-child(1) > .panel-thin > .panel-body > .panel-top > :nth-child(1)').click()
         cy.wait(500)
         cy.get('#add-product-to-cart > .text-btn').click()
         cy.wait(500)
         cy.get('.add-insurance > ._secondary > span').click()
-        cy.get('.add-insurance > .text-btn > span').click()
         cy.get('.toast-alert').should('exist').contains('Du har lagt till en produkt i varukorgen')
         cy.get('.cart-header').click()
         cy.get('.to-checkout a').should('exist').click()
@@ -69,10 +68,11 @@ describe('User account manipulation', () => {
     var estr = x+"rasmustest@example.se"
     var ustr = x+"rasmustest"
     beforeEach(() => {
-        cy.visit("https://www.webhallen.com/se/")
+        cy.viewport(1920,1080)
+        cy.visit("https://www.webhallen.com/se")
         cy.wait(1000)
         cy.get('.cookie-buttons > :nth-child(1) > span').click()
-        cy.wait(2000)
+        cy.wait(1000)
     })
     it("Allows creation of new user account", () => {
         cy.get('.member-widget-options > :nth-child(2)').click()
@@ -87,7 +87,7 @@ describe('User account manipulation', () => {
         cy.wait(1000)
     })
     it("Allows log-in with existing credentials", () => {
-        cy.get('strong').click()
+        cy.get(':nth-child(1) > strong').click()
         cy.get('.icon-user > .input-field').type(ustr)
         cy.get('.icon-lock > .input-field').type('passwordtest')
         cy.get('.login-form > :nth-child(1) > .text-btn').click()
