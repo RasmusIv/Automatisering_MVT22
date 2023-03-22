@@ -14,6 +14,7 @@ describe('User Journey from main to checkout', () => {
         cy.get('.search').type('Dungeons and Dragons')
         cy.get('.search-button').click()
         cy.get('h1').contains('Sökresultat för "Dungeons and Dragons"')
+        cy.wait(1000)
     })
     it("Allows adding an item to the cart", () => {
         cy.get('.search').type('Nintendo Switch')
@@ -23,6 +24,7 @@ describe('User Journey from main to checkout', () => {
         cy.get('#add-product-to-cart > .text-btn').click()
         cy.get('.add-insurance > ._secondary > span').click()
         cy.get('.toast-alert').should('exist').contains('Du har lagt till en produkt i varukorgen')
+        cy.wait(1000)
     })
     it("Allows moving to checkout when an item is in the cart", () => {
         cy.wait(1000)
@@ -36,10 +38,7 @@ describe('User Journey from main to checkout', () => {
         cy.get('#add-product-to-cart > .text-btn').click()
         cy.wait(500)
         cy.get('.add-insurance > ._secondary > span').click()
-        cy.get('.mb-4 > .level-one-heading').then(($el) => {
-            if ($el.length) {
-            cy.get('.add-insurance > .text-btn > span').click()
-            }});
+        cy.get('.add-insurance > .text-btn > span').click()
         cy.get('.toast-alert').should('exist').contains('Du har lagt till en produkt i varukorgen')
         cy.get('.cart-header').click()
         cy.get('.to-checkout a').should('exist').click()
@@ -62,6 +61,7 @@ describe('User Journey from main to checkout', () => {
         cy.get('#email').type('rasmus01234+test@gmail.com')
         cy.get('#confirm-email').type('rasmus01234+test@gmail.com')
         cy.get('.confirm-order-btn').should('exist')
+        cy.wait(1000)
     })
 })
 describe('User account manipulation', () => {
@@ -73,10 +73,9 @@ describe('User account manipulation', () => {
         cy.visit("https://www.webhallen.com/se/")
         cy.wait(1000)
         cy.get('.cookie-buttons > :nth-child(1) > span').click()
-        cy.wait(1000)
+        cy.wait(2000)
     })
     it("Allows creation of new user account", () => {
-        cy.wait(1000)
         cy.get('.member-widget-options > :nth-child(2)').click()
         cy.get('#email').type(estr)
         cy.get('#username').type(ustr)
@@ -86,9 +85,9 @@ describe('User account manipulation', () => {
         cy.get('.mt-5').should('exist')
         // cy.get('mt-5').click()
         cy.log(estr, ustr)
+        cy.wait(1000)
     })
     it("Allows log-in with existing credentials", () => {
-        cy.wait(1000)
         cy.get('strong').click()
         cy.get('.icon-user > .input-field').type(ustr)
         cy.get('.icon-lock > .input-field').type('passwordtest')
@@ -96,9 +95,9 @@ describe('User account manipulation', () => {
         // cy.get('.profile-picture-wrap > .ximg').click()
         // cy.get('.username > .secondary-link').should('exist').click()
         // cy.location('pathname').should('contain', '/se/member/7336352')
+        cy.wait(1000)
     })
     it("Does NOT allow creation of new user account with existing credentials", () => {
-        cy.wait(1000)
         cy.get('.member-widget-options > :nth-child(2)').click()
         cy.get('#email').type(estr)
         cy.get('#username').type(ustr)
