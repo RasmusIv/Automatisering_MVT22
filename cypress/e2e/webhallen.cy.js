@@ -25,6 +25,7 @@ describe('User Journey from main to checkout', () => {
         cy.get('.toast-alert').should('exist').contains('Du har lagt till en produkt i varukorgen')
     })
     it("Allows moving to checkout when an item is in the cart", () => {
+        cy.wait(1000)
         cy.get('.search').type('PS5')
         cy.get('.search-button').click()
         cy.location('pathname').should('contain', '/se/search')
@@ -35,6 +36,10 @@ describe('User Journey from main to checkout', () => {
         cy.get('#add-product-to-cart > .text-btn').click()
         cy.wait(500)
         cy.get('.add-insurance > ._secondary > span').click()
+        cy.get('.mb-4 > .level-one-heading').then(($el) => {
+            if ($el.length) {
+            cy.get('.add-insurance > .text-btn > span').click()
+            }});
         cy.get('.toast-alert').should('exist').contains('Du har lagt till en produkt i varukorgen')
         cy.get('.cart-header').click()
         cy.get('.to-checkout a').should('exist').click()
