@@ -4,7 +4,6 @@ function getRandomInt(max) {
 /// <reference types="cypress" />
 describe('User Journey from main to checkout', () => {
     beforeEach(() => {
-        cy.viewport(1920, 1080)
         cy.visit("http://webhallen.com/se")
         cy.wait(1000)
         cy.get('.cookie-buttons > :nth-child(1) > span').click()
@@ -70,7 +69,6 @@ describe('User account manipulation', () => {
     var estr = x+"rasmustest@example.se"
     var ustr = x+"rasmustest"
     beforeEach(() => {
-        cy.viewport(1920, 1080)
         cy.visit("https://www.webhallen.com/se/")
         cy.wait(1000)
         cy.get('.cookie-buttons > :nth-child(1) > span').click()
