@@ -62,7 +62,7 @@ describe('User Journey from main to checkout', () => {
         cy.wait(1000)
     })
 })
-describe.only('User account manipulation', () => {
+describe('User account manipulation', () => {
     var x = getRandomInt(1000)
     var estr = x+"rasmustest@example.se"
     var ustr = x+"rasmustest"
