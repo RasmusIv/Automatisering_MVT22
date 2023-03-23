@@ -62,7 +62,7 @@ describe('User Journey from main to checkout', () => {
         cy.wait(1000)
     })
 })
-describe('User account manipulation', () => {
+describe.only('User account manipulation', () => {
     var x = getRandomInt(1000)
     var estr = x+"rasmustest@example.se"
     var ustr = x+"rasmustest"
@@ -80,8 +80,8 @@ describe('User account manipulation', () => {
         cy.get('#password').click()
         cy.get('#password').type('passwordtest')
         cy.get('#verifypassword').type('passwordtest')
-        cy.get('.mt-5').should('exist')
-        // cy.get('mt-5').click()
+        cy.get('.mt-5 > span').should('exist')
+        cy.get('.mt-5 > span').click()
         cy.log(estr, ustr)
         cy.wait(1000)
     })
@@ -90,9 +90,9 @@ describe('User account manipulation', () => {
         cy.get('.icon-user > .input-field').type(ustr)
         cy.get('.icon-lock > .input-field').type('passwordtest')
         cy.get('.login-form > :nth-child(1) > .text-btn').click()
-        // cy.get('.profile-picture-wrap > .ximg').click()
-        // cy.get('.username > .secondary-link').should('exist').click()
-        // cy.location('pathname').should('contain', '/se/member/7336352')
+        cy.get('.profile-picture-wrap > .ximg').click()
+        cy.get('.username > .secondary-link').should('exist').click()
+        cy.location('pathname').should('contain', '/se/member/')
         cy.wait(1000)
     })
     it("Does NOT allow creation of new user account with existing credentials", () => {
@@ -101,8 +101,8 @@ describe('User account manipulation', () => {
         cy.get('#username').type(ustr)
         cy.get('#password').type('passwordtest')
         cy.get('#verifypassword').type('passwordtest')
-        // cy.get('.mt-5').click()
-        // cy.get('.toast-alert').should('exist').contains('Det finns redan ett konto med e-postadressen')
-        // cy.get('.toast-alert').should('exist').contains('Det finns redan ett konto med användarnamnet')
+        cy.get('.mt-5 > span').click()
+        cy.get('.toast-alert').should('exist').contains('Det finns redan ett konto med e-postadressen')
+        cy.get('.toast-alert').should('exist').contains('Det finns redan ett konto med användarnamnet')
     })
 })
